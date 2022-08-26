@@ -15,11 +15,6 @@ import javax.persistence.Table;
 	@GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 	private Integer SweetItemId;
-	public OrderItem(Integer id, Integer sweetItemId) {
-		super();
-		this.id = id;
-		SweetItemId = sweetItemId;
-	}
 	public Integer getId() {
 		return id;
 	}
