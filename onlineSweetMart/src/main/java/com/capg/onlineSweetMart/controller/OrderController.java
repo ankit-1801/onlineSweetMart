@@ -19,32 +19,32 @@ public class OrderController {
     @Autowired
     private OrderService orderService;
     
-    @PostMapping("/ordercreate")
+    @PostMapping("/createOrder")
     public ResponseEntity<String>createOrder (@RequestBody Order o) throws IOException {
-        return new ResponseEntity<>(orderService.add(o), HttpStatus.CREATED);
+        return new ResponseEntity<>(orderService.createOrder(o), HttpStatus.CREATED);
 
     }
-    @GetMapping("/readOrderAll")
+    @GetMapping("/readAllOrder")
     public List<Order> fetchingOrder(){
-        return orderService.readAll();
+        return orderService.readAllOrder();
     }
-    @GetMapping("/readorderbyid/{ordId}")
+    @GetMapping("/readOrderbyid/{ordId}")
     public ResponseEntity<Order> readOrder(@PathVariable("ordId")Integer ordId)
     {
-        return new ResponseEntity<>(orderService.read(ordId),HttpStatus.OK);
+        return new ResponseEntity<>(orderService.readOrder(ordId),HttpStatus.OK);
     }
-    @GetMapping("/getSweetItemListById/{ordId}")
-    public List<OrderItem> getSweetItemListById(@PathVariable("ordId")Integer ordId)
+    @GetMapping("/getSweetItemListByOrderId/{ordId}")
+    public List<OrderItem> getSweetItemListByOrderId(@PathVariable("ordId")Integer ordId)
     {
-    	return orderService.getSweetItemListById(ordId);
+    	return orderService.getSweetItemListByOrderId(ordId);
     }
-    @PatchMapping("/updateorder/{ordId}")
+    @PatchMapping("/updateOrder/{ordId}")
     public ResponseEntity<String> updateorder(@PathVariable("ordId") Integer ordId, @RequestBody Order order){
-        return new ResponseEntity<>(orderService.update(order, ordId), HttpStatus.OK);
+        return new ResponseEntity<>(orderService.updateOrder(order, ordId), HttpStatus.OK);
     }
     @DeleteMapping("/del/{ordId}")
-    private void deleteOrder(@PathVariable("ordId") Integer ordId){
-    	orderService.delete(ordId);
+    private ResponseEntity<String> deleteOrder(@PathVariable("ordId") Integer ordId){
+    	return new ResponseEntity<String>(orderService.deleteOrder(ordId),HttpStatus.OK);
     }
     @GetMapping("/getUserOrders/{userId}")
     public List<Order> getOrderByUserId(@PathVariable("userId")Integer userId)

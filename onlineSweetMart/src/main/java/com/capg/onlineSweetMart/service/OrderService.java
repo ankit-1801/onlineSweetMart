@@ -8,11 +8,11 @@ import java.util.List;
 
 public interface OrderService {
     @Autowired
-    public String add(Order order);
-    public String update(Order order, Integer id);
-    public String delete(Integer id);
-    public Order read(Integer id);
+    public String createOrder(Order order);
+    public String updateOrder(Order order, Integer id);
+    public String deleteOrder(Integer id);
+    public Order readOrder(Integer id);
     public List<Order> getOrderByUserId(int customerId);
-    public List<Order> readAll();
-	public List<OrderItem> getSweetItemListById(Integer ordId);
+    public List<Order> readAllOrder();
+	public List<OrderItem> getSweetItemListByOrderId(Integer ordId);
 }

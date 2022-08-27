@@ -22,7 +22,7 @@ public class OrderServiceImpl implements OrderService {
     private SweetItemRepository sweetItemRepository;
 
     @Override
-    public String add(Order order) {
+    public String createOrder(Order order) {
     	
         order.setOrderDate(LocalDate.now());
         order.setDispatchDate(LocalDate.now());
@@ -39,8 +39,8 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public String update(Order order, Integer id) {
-        Order o=orderRepository.findById(id).orElseThrow(()->new OrderNotFoundException("Order with id= "+id+" is not found"));
+    public String updateOrder(Order order, Integer id) {
+        Order o=orderRepository.findById(id).orElseThrow(()->new OrderNotFoundException("Order with id "+id+" is not found"));
 
         boolean needUpdate = false;
         if (order.getTotalCost() !=0.0)
@@ -56,20 +56,20 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public String delete(Integer id) {
-    	orderRepository.findById(id).orElseThrow(()->new OrderNotFoundException("Order with id= "+id+" is not found"));
+    public String deleteOrder(Integer id) {
+    	orderRepository.findById(id).orElseThrow(()->new OrderNotFoundException("Order with id "+id+" is not found"));
     	orderRepository.deleteById(id);
         return " Order deleteed ";
     }
 
     @Override
-    public Order read(Integer id) {
-        Order order=orderRepository.findById(id).orElseThrow(()->new OrderNotFoundException("order with id ="+id+"is not found"));
+    public Order readOrder(Integer id) {
+        Order order=orderRepository.findById(id).orElseThrow(()->new OrderNotFoundException("order with id "+id+" is not found"));
         return order;
     }
 
     @Override
-    public List<Order> readAll() {
+    public List<Order> readAllOrder() {
         List<Order> orderList=new ArrayList<Order>();
         orderRepository.findAll().forEach(order -> orderList.add(order));
         return orderList;
@@ -82,8 +82,8 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
-	public List<OrderItem> getSweetItemListById(Integer ordId) {
-		Order order=orderRepository.findById(ordId).orElseThrow(()->new OrderNotFoundException("order with id ="+ordId+"is not found"));
+	public List<OrderItem> getSweetItemListByOrderId(Integer ordId) {
+		Order order=orderRepository.findById(ordId).orElseThrow(()->new OrderNotFoundException("order with id "+ordId+" is not found"));
 		return order.getSweetItemList();
 	}
 

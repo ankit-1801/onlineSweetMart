@@ -18,6 +18,8 @@ public class Order {
     
     private int userId;
     
+    private String status;
+    
     @OneToMany(cascade=CascadeType.ALL,fetch=FetchType.LAZY)
     private List<OrderItem> SweetItemList;
 
@@ -67,6 +69,14 @@ public class Order {
 
 	public void setSweetItemList(List<OrderItem> sweetItemList) {
 		SweetItemList = sweetItemList;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
 }
