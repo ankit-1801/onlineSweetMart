@@ -27,11 +27,10 @@ public class OrderServiceImpl implements OrderService {
         order.setOrderDate(LocalDate.now());
         order.setDispatchDate(LocalDate.now());
         float cost = 0;
-        //importanttt
-//        for(OrderItem item : order.getSweetItemList()) {
-//        	SweetItem med = sweetItemRepository.findById(item.getSweetItemId()).orElseThrow(()->new OrderNotFoundException("Medcine not found"));;
-//            cost+=med.getMedicineCost();
-//        }
+        for(OrderItem item : order.getSweetItemList()) {
+        	SweetItem med = sweetItemRepository.findById(item.getSweetItemId()).orElseThrow(()->new OrderNotFoundException("Medcine not found"));;
+            cost+=med.getPrice();
+        }
         
         order.setTotalCost(cost);
         orderRepository.save(order);
@@ -41,18 +40,15 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public String updateOrder(Order order, Integer id) {
         Order o=orderRepository.findById(id).orElseThrow(()->new OrderNotFoundException("Order with id "+id+" is not found"));
-
-        boolean needUpdate = false;
         if (order.getTotalCost() !=0.0)
         {
             o.setOrderId(order.getOrderId());
-            needUpdate = true;
         }
-        if(needUpdate) {
-        	orderRepository.save(o);
-            return "order updated successfully";
-        }
-        return "Nothing to update";
+        if(order.getStatus()!= null) {
+        	o.setStatus(order.getStatus());
+        }	
+        orderRepository.save(o);
+        return "Order updated!";
     }
 
     @Override
