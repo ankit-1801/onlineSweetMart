@@ -23,10 +23,7 @@ public class UserServiceImpl implements UserService{
 		return userRepository.save(user);
 	}
 
-	@Override
-	public User signIn(User user) {
-		return null;
-	}
+
 
 	@Override
 	public String updateUser(User user, Integer id) {
@@ -74,6 +71,20 @@ public class UserServiceImpl implements UserService{
 		List<User> userList = new ArrayList<User>();
         userRepository.findAll().forEach(user -> userList.add(user));
         return userList;
+	}
+	
+	@Override
+	public User loadUserByUsername(String username) {
+		
+		return userRepository.loadUserByUsername(username);
+	}
+
+
+
+	@Override
+	public User signIn(User user) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

@@ -20,15 +20,18 @@ import com.capg.onlineSweetMart.service.SweetItemService;
 
 @CrossOrigin("*")
 @RestController
-@RequestMapping
+@RequestMapping("item")
 public class SweetItemController {
 	@Autowired
 	private SweetItemService sweetItemService;
 	
+	
+	//need updated 
 	@PostMapping("/addSweetItem")
 	public ResponseEntity<String> addSweetItem(@RequestBody SweetItem sweetItem){
 		return new ResponseEntity<String>(sweetItemService.addSweetItem(sweetItem),HttpStatus.CREATED);
 	}
+	
     @GetMapping("/getAllSweetItem")
     public ResponseEntity<List<SweetItem>> getAllSweetItem(){
     return new ResponseEntity<>(sweetItemService.getAllSweetItem(),HttpStatus.FOUND);

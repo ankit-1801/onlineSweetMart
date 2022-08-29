@@ -10,4 +10,5 @@ public interface UserService {
     public String deleteUser(Integer id);
     public User readUser(Integer id);
     public List<User> readAllUser();
+	public User loadUserByUsername(String username);
 }

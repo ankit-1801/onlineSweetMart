@@ -1,7 +1,5 @@
 package com.capg.onlineSweetMart.entity;
 
-import java.util.Objects;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -14,8 +12,9 @@ public class SweetItem {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
     private Integer sweetItemId;
+	private String name;
 	
-    private double price;
+	private double price;
 
     private int quantity;
 
@@ -62,24 +61,12 @@ public class SweetItem {
 	public void setImage(String image) {
 		this.image = image;
 	}
-
-	@Override
-	public int hashCode() {
-		return Objects.hash(description, image, price, quantity, sweetItemId);
+	public String getName() {
+		return name;
 	}
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		SweetItem other = (SweetItem) obj;
-		return Objects.equals(description, other.description) && Objects.equals(image, other.image)
-				&& Double.doubleToLongBits(price) == Double.doubleToLongBits(other.price) && quantity == other.quantity
-				&& Objects.equals(sweetItemId, other.sweetItemId);
+	public void setName(String name) {
+		this.name = name;
 	}
 	
     

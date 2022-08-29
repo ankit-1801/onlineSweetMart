@@ -21,7 +21,7 @@ public class Order {
     private String status;
     
     @OneToMany(cascade=CascadeType.ALL,fetch=FetchType.LAZY)
-    private List<OrderItem> SweetItemList;
+    private List<OrderItem> sweetItemList;
 
 	public Integer getOrderId() {
 		return orderId;
@@ -64,11 +64,11 @@ public class Order {
 	}
 
 	public List<OrderItem> getSweetItemList() {
-		return SweetItemList;
+		return sweetItemList;
 	}
 
 	public void setSweetItemList(List<OrderItem> sweetItemList) {
-		SweetItemList = sweetItemList;
+		sweetItemList = sweetItemList;
 	}
 
 	public String getStatus() {

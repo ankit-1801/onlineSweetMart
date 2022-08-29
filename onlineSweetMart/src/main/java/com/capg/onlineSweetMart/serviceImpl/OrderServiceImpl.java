@@ -28,7 +28,7 @@ public class OrderServiceImpl implements OrderService {
         order.setDispatchDate(LocalDate.now());
         float cost = 0;
         for(OrderItem item : order.getSweetItemList()) {
-        	SweetItem med = sweetItemRepository.findById(item.getSweetItemId()).orElseThrow(()->new OrderNotFoundException("Medcine not found"));;
+        	SweetItem med = sweetItemRepository.findById(item.getSweetItemId()).orElseThrow(()->new OrderNotFoundException("Order not found"));;
             cost+=med.getPrice();
         }
         
@@ -60,7 +60,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public Order readOrder(Integer id) {
-        Order order=orderRepository.findById(id).orElseThrow(()->new OrderNotFoundException("order with id "+id+" is not found"));
+        Order order=orderRepository.findById(id).orElseThrow(()->new OrderNotFoundException("Order with id "+id+" is not found"));
         return order;
     }
 
@@ -79,7 +79,7 @@ public class OrderServiceImpl implements OrderService {
 
 	@Override
 	public List<OrderItem> getSweetItemListByOrderId(Integer ordId) {
-		Order order=orderRepository.findById(ordId).orElseThrow(()->new OrderNotFoundException("order with id "+ordId+" is not found"));
+		Order order=orderRepository.findById(ordId).orElseThrow(()->new OrderNotFoundException("Order with id "+ordId+" is not found"));
 		return order.getSweetItemList();
 	}
 
