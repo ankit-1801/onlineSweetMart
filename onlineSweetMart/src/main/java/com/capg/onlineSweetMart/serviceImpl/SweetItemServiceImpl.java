@@ -20,7 +20,7 @@ public class SweetItemServiceImpl implements SweetItemService {
 	@Override
 	public String addSweetItem(SweetItem sweetItem) {
 		sweetItemRepository.save(sweetItem);
-		return "Order Created";
+		return "Sweet Item added!";
 		
 	}
 

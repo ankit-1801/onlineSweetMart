@@ -19,8 +19,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.DefaultSecurityFilterChain;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 @Configuration
+@EnableWebMvc
 @EnableWebSecurity
 public class MySecurityConfig {
     
@@ -48,6 +50,7 @@ public class MySecurityConfig {
 		.antMatchers("/user/**").permitAll()
 		.antMatchers("/item/**").permitAll()
 		.antMatchers("/order/**").permitAll()
+		.antMatchers("/images/**").permitAll()
 		.antMatchers("/admin/**").hasRole("ADMIN")
 		.anyRequest().authenticated()
 		.and()
