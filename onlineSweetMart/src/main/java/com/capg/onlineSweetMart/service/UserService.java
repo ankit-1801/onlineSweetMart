@@ -1,14 +1,15 @@
 package com.capg.onlineSweetMart.service;
 
 import java.util.List;
-import com.capg.onlineSweetMart.entity.User;
+
+import com.capg.onlineSweetMart.dto.UserDto;
 
 public interface UserService {
-    public User signUpUser(User user);
-    public User signIn(User user);
-    public String updateUser(User user, Integer id);
+    public UserDto signUpUser(UserDto userDto);
+    public UserDto signIn(UserDto userDto);
+    public String updateUser(UserDto userDto, Integer id);
     public String deleteUser(Integer id);
-    public User readUser(Integer id);
-    public List<User> readAllUser();
-	public User loadUserByUsername(String username);
+    public UserDto readUser(Integer id);
+    public List<UserDto> readAllUser();
+	public UserDto loadUserByUsername(String username);
 }

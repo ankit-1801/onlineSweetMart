@@ -1,13 +1,9 @@
-package com.capg.onlineSweetMart.entity;
-import javax.persistence.*;
+package com.capg.onlineSweetMart.dto;
+
 import java.time.LocalDate;
 import java.util.List;
 
-@Entity
-@Table(name="Orders")
-public class Order {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class OrderDto {
     private Integer orderId;
 
     private LocalDate orderDate;
@@ -20,8 +16,8 @@ public class Order {
     
     private String status;
     
-    @OneToMany(cascade=CascadeType.ALL,fetch=FetchType.LAZY)
-    private List<OrderItem> sweetItemList;
+    
+    private List<OrderItemDto> sweetItemList;
 
 	public Integer getOrderId() {
 		return orderId;
@@ -63,14 +59,6 @@ public class Order {
 		this.userId = userId;
 	}
 
-	public List<OrderItem> getSweetItemList() {
-		return sweetItemList;
-	}
-
-	public void setSweetItemList(List<OrderItem> sweetItemList) {
-		this.sweetItemList = sweetItemList;
-	}
-
 	public String getStatus() {
 		return status;
 	}
@@ -78,5 +66,22 @@ public class Order {
 	public void setStatus(String status) {
 		this.status = status;
 	}
+
+	public List<OrderItemDto> getSweetItemList() {
+		return sweetItemList;
+	}
+
+	public void setSweetItemList(List<OrderItemDto> sweetItemList) {
+		this.sweetItemList = sweetItemList;
+	}
+
+	@Override
+	public String toString() {
+		return "OrderDto [orderId=" + orderId + ", orderDate=" + orderDate + ", dispatchDate=" + dispatchDate
+				+ ", totalCost=" + totalCost + ", userId=" + userId + ", status=" + status + ", sweetItemList="
+				+ sweetItemList + "]";
+	}
+	
+	
 
 }

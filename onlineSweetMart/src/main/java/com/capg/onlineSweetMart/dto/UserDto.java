@@ -1,16 +1,7 @@
-package com.capg.onlineSweetMart.entity;
+package com.capg.onlineSweetMart.dto;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-
-@Entity
-@Table(name = "users")
-public class User {
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+public class UserDto {
+	
 	private int userId;
 	private String name;
 	private String email;

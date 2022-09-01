@@ -10,9 +10,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import com.capg.onlineSweetMart.dto.UserDto;
 import com.capg.onlineSweetMart.service.UserService;
-
-import antlr.collections.List;
 
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
@@ -23,7 +22,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		// TODO Auto-generated method stub
-		com.capg.onlineSweetMart.entity.User userr= userService.loadUserByUsername(username);
+		UserDto userr= userService.loadUserByUsername(username);
 		if(userr != null) {
 			SimpleGrantedAuthority authority = new SimpleGrantedAuthority(userr.getRole());
 			Collection<SimpleGrantedAuthority> list = new ArrayList<SimpleGrantedAuthority>();

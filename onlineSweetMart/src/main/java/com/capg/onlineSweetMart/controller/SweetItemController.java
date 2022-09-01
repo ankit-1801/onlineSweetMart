@@ -26,9 +26,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-
-import com.capg.onlineSweetMart.entity.SweetItem;
+import com.capg.onlineSweetMart.dto.SweetItemsDto;
+import com.capg.onlineSweetMart.helper.ImageUploadHelper;
 import com.capg.onlineSweetMart.service.SweetItemService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -58,11 +57,12 @@ public class SweetItemController {
     		if(file.isEmpty()) {
     			return new ResponseEntity<String>("File is empty!!!",HttpStatus.INTERNAL_SERVER_ERROR);
     		}
-    		if(imageUploadHelper.uploadFile(file)) {
+    		String filename = imageUploadHelper.uploadFile(file);
+    		if(filename != null) {
     			
-    			SweetItem sweetItem = new ObjectMapper().readValue(jsonStringFoodDto, SweetItem.class);
-    			sweetItem.setImage(file.getOriginalFilename());
-    			sweetItemService.addSweetItem(sweetItem);
+    			SweetItemsDto sweetItemsDto = new ObjectMapper().readValue(jsonStringFoodDto, SweetItemsDto.class);
+    			sweetItemsDto.setImage(filename);
+    			sweetItemService.addSweetItem(sweetItemsDto);
     		    return  new  ResponseEntity<>("Item added!!",HttpStatus.OK );
     		}
     	}catch (Exception e) {
@@ -81,7 +81,7 @@ public class SweetItemController {
     }
 	
     @GetMapping("item/getAllSweetItem")
-    public ResponseEntity<List<SweetItem>> getAllSweetItem(){
+    public ResponseEntity<List<SweetItemsDto>> getAllSweetItem(){
     return new ResponseEntity<>(sweetItemService.getAllSweetItem(),HttpStatus.OK);
     }
 	
@@ -91,12 +91,12 @@ public class SweetItemController {
 	}
 	
     @PatchMapping("item/updateSweetItem/{id}")
-    public ResponseEntity<String> updateSweetItem(@RequestBody SweetItem sweetItem, @PathVariable("id") int id){
-    	return new ResponseEntity<>(sweetItemService.updateSweetItem(sweetItem,id),HttpStatus.ACCEPTED);
+    public ResponseEntity<String> updateSweetItem(@RequestBody SweetItemsDto sweetItemsDto, @PathVariable("id") int id){
+    	return new ResponseEntity<>(sweetItemService.updateSweetItem(sweetItemsDto,id),HttpStatus.ACCEPTED);
     }
     
     @GetMapping("item/getSweetItemById/{id}")
-    public ResponseEntity<SweetItem> getSweetItemById(@PathVariable("id") int id){
+    public ResponseEntity<SweetItemsDto> getSweetItemById(@PathVariable("id") int id){
     	return new ResponseEntity<>(sweetItemService.getSweetItemById(id),HttpStatus.OK);
     }
     
