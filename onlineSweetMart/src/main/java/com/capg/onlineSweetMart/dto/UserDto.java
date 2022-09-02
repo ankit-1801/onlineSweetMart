@@ -1,8 +1,12 @@
 package com.capg.onlineSweetMart.dto;
 
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+
 public class UserDto {
 	
 	private int userId;
+	
 	private String name;
 	private String email;
 	private String password;
@@ -16,7 +20,7 @@ public class UserDto {
 		return userId;
 	}
 	public void setUserid(int userid) {
-		this.userId = userid;
+		this.userId =  userid;
 	}
 	public String getName() {
 		return name;

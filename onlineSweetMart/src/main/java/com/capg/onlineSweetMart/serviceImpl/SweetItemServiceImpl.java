@@ -61,6 +61,9 @@ public class SweetItemServiceImpl implements SweetItemService {
 		if(sweetItems.getDescription()!=null) {
 			sweetItem1.setDescription(sweetItems.getDescription());
 		}
+		if(sweetItems.getName()!=null) {
+			sweetItem1.setName(sweetItems.getName());
+		}
 		if(sweetItems.getPrice()> 0) {
 			sweetItem1.setPrice(sweetItems.getPrice());
 		}

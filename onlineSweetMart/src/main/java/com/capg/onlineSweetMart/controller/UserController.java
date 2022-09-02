@@ -11,6 +11,8 @@ import com.capg.onlineSweetMart.service.UserService;
 import java.io.IOException;
 import java.util.List;
 
+import javax.validation.Valid;
+
 @CrossOrigin("*")
 @RestController
 @RequestMapping(value = "user")
@@ -20,13 +22,16 @@ public class UserController {
 
 
     @PostMapping("/signUp")
-    public ResponseEntity<UserDto> createUser(@RequestBody UserDto u) throws IOException {// changes
+    public ResponseEntity<UserDto> createUser(@Valid @RequestBody UserDto u) throws IOException {// changes
+    	u.setRole("ROLE_USER");
         return new ResponseEntity<>(userService.signUpUser(u), HttpStatus.CREATED);
     }
+    
     @PostMapping("/signIn")
     public ResponseEntity<UserDto> signIn(@RequestBody UserDto u) throws IOException {// changes
     	return new ResponseEntity<>(userService.signIn(u), HttpStatus.OK);
     }
+    
     @GetMapping("/readAll")
     public List<UserDto> fetchingUser()
     {
@@ -40,13 +45,18 @@ public class UserController {
     }
 
     @GetMapping("/read/{userId}")
-    public ResponseEntity<UserDto>readuser(@PathVariable("userId")Integer userId)
+    public ResponseEntity<UserDto>readUser(@PathVariable("userId")Integer userId)
     {
         return new ResponseEntity<>(userService.readUser(userId),HttpStatus.OK);
     }
     @PatchMapping("/update/{userId}")
     public ResponseEntity<String>updateUser(@PathVariable("userId")Integer userId,@RequestBody UserDto userDto){
+    	userDto.setRole("ROLE_USER");
         return new ResponseEntity<>(userService.updateUser(userDto,userId),HttpStatus.OK);
     }
     
+    @GetMapping("/loadUserByUsername/{username}")
+    public ResponseEntity<UserDto> loadUserByUsername(@PathVariable("username") String userName){
+    	return new ResponseEntity<UserDto>(userService.loadUserByUsername(userName),HttpStatus.OK);
+    }
 }

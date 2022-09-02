@@ -14,7 +14,9 @@ import javax.persistence.Table;
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
-	private Integer SweetItemId;
+	private Integer sweetItemId;
+	private String sweetItemName;
+	private Integer purchaseQuantity;
 	public Integer getId() {
 		return id;
 	}
@@ -22,25 +24,23 @@ import javax.persistence.Table;
 		this.id = id;
 	}
 	public Integer getSweetItemId() {
-		return SweetItemId;
+		return sweetItemId;
 	}
 	public void setSweetItemId(Integer sweetItemId) {
-		SweetItemId = sweetItemId;
+		this.sweetItemId = sweetItemId;
 	}
-	@Override
-	public int hashCode() {
-		return Objects.hash(SweetItemId, id);
+	public Integer getPurchaseQuantity() {
+		return purchaseQuantity;
 	}
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		OrderItem other = (OrderItem) obj;
-		return Objects.equals(SweetItemId, other.SweetItemId) && Objects.equals(id, other.id);
+	public void setPurchaseQuantity(Integer purchaseQuantity) {
+		this.purchaseQuantity = purchaseQuantity;
 	}
+	public String getSweetItemName() {
+		return sweetItemName;
+	}
+	public void setSweetItemName(String sweetItemName) {
+		this.sweetItemName = sweetItemName;
+	}
+	
 	
 }

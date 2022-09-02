@@ -44,7 +44,7 @@ public class UserServiceImpl implements UserService{
             u.setRole(user.getRole());
         }
         if (StringUtils.hasLength(user.getEmail())) {
-        	u.setEmail(user.getRole());
+        	u.setEmail(user.getEmail());
         }
         if (StringUtils.hasLength(user.getStreet())) {
         	u.setStreet(user.getStreet());
@@ -88,15 +88,10 @@ public class UserServiceImpl implements UserService{
 	
 	@Override
 	public UserDto loadUserByUsername(String username) {
-		User user = new User();
-		try {
-			user = userRepository.loadUserByUsername(username);
-		}
-		catch (Exception e) {
-			// TODO: handle exception
-			throw new UserNotFoundException("user with username (" + username + ") not found");
-		}
-		return converter.convertUserToUserDto(user);
+		User user = userRepository.loadUserByUsername(username);
+		if(user!=null) return converter.convertUserToUserDto(user);
+		throw new UserNotFoundException("user with username (" + username + ") not found");
+
 	}
 
 

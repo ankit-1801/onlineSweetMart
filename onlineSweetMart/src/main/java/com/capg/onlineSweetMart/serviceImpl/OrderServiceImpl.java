@@ -32,13 +32,7 @@ public class OrderServiceImpl implements OrderService {
     	Order order = converter.convertOrderDtoToOrder(orderDto);
         order.setOrderDate(LocalDate.now());
         order.setDispatchDate(LocalDate.now());
-        float cost = 0;
-        for(OrderItem item : order.getSweetItemList()) {
-        	SweetItems med = sweetItemRepository.findById(item.getSweetItemId()).orElseThrow(()->new OrderNotFoundException("Order not found"));;
-            cost+=med.getPrice();
-        }
-        
-        order.setTotalCost(cost);
+        order.setStatus("pending");
         orderRepository.save(order);
         return "Order created!!";
     }
