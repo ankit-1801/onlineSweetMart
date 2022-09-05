@@ -15,6 +15,7 @@ public class UserDto {
 	private String city;
 	private String state;
 	private String pincode;
+	private Integer resetToken;
 	
 	public int getUserid() {
 		return userId;
@@ -69,6 +70,12 @@ public class UserDto {
 	}
 	public void setPincode(String pincode) {
 		this.pincode = pincode;
+	}
+	public Integer getResetToken() {
+		return resetToken;
+	}
+	public void setResetToken(Integer resetToken) {
+		this.resetToken = resetToken;
 	}
 	
 }

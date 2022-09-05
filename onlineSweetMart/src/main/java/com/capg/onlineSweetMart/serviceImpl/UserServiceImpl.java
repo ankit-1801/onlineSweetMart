@@ -58,6 +58,10 @@ public class UserServiceImpl implements UserService{
         if (StringUtils.hasLength(user.getCity())) {
         	u.setCity(user.getCity());
         }
+        if(user.getResetToken() > 0) {
+        	u.setResetToken(user.getResetToken());
+        }
+        
         userRepository.save(u);
        return "User updated successfully";
 	}

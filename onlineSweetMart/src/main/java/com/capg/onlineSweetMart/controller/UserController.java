@@ -5,7 +5,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import com.capg.onlineSweetMart.dto.ResetPasswordRequestDto;
 import com.capg.onlineSweetMart.dto.UserDto;
+import com.capg.onlineSweetMart.service.EmailService;
 import com.capg.onlineSweetMart.service.UserService;
 
 import java.io.IOException;
@@ -20,7 +22,9 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-
+    @Autowired
+    private EmailService emailService;
+    
     @PostMapping("/signUp")
     public ResponseEntity<UserDto> createUser(@Valid @RequestBody UserDto u) throws IOException {// changes
     	u.setRole("ROLE_USER");
@@ -58,5 +62,34 @@ public class UserController {
     @GetMapping("/loadUserByUsername/{username}")
     public ResponseEntity<UserDto> loadUserByUsername(@PathVariable("username") String userName){
     	return new ResponseEntity<UserDto>(userService.loadUserByUsername(userName),HttpStatus.OK);
+    }
+    
+    @PostMapping("/generateOtp/{email}")
+    public ResponseEntity<String> generateOtp(@PathVariable("email")String email){
+    	Integer min = 100000;  
+    	Integer max = 999999;  
+    	Integer resetToken = (int)(Math.random()*(max-min+1)+min);  
+    	UserDto userDto = userService.loadUserByUsername(email);
+    	userDto.setResetToken(resetToken);
+    	userService.updateUser(userDto, userDto.getUserid());
+    	
+    	String message  = "Your OTP is : "+resetToken;
+    	String subject = "OTP from Online Sweet Mart";
+    	boolean f = emailService.sendMail(message, subject, "user_123@mailinator.com");
+    	
+		return null;
+    }
+    
+    @PutMapping("/changePassword")
+    public ResponseEntity<String> changePassword(@RequestBody ResetPasswordRequestDto requestDto){
+    	UserDto userDto = userService.loadUserByUsername(requestDto.getEmail());	
+    	if(userDto.getResetToken().compareTo(requestDto.getOtp()) ==0 ) {
+    		userDto.setPassword(requestDto.getNewPassword());
+    		userService.updateUser(userDto, userDto.getUserid());
+    		return new ResponseEntity<String>("password updated successfully!",HttpStatus.OK);
+    	}
+    	
+		 return new ResponseEntity<String>("Enter valid otp!",HttpStatus.NOT_FOUND);
+    	
     }
 }
