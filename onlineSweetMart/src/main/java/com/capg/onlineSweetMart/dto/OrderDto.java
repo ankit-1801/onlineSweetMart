@@ -3,6 +3,8 @@ package com.capg.onlineSweetMart.dto;
 import java.time.LocalDate;
 import java.util.List;
 
+import javax.validation.constraints.NotNull;
+
 public class OrderDto {
     private Integer orderId;
 
@@ -11,7 +13,6 @@ public class OrderDto {
     private LocalDate dispatchDate;
 
     private float totalCost;
-    
     private int userId;
     
     private String status;

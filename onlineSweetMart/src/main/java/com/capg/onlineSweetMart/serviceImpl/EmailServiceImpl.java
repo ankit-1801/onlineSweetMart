@@ -41,7 +41,7 @@ public class EmailServiceImpl implements EmailService {
 				Session session=Session.getInstance(properties, new Authenticator() {
 					@Override
 					protected PasswordAuthentication getPasswordAuthentication() {				
-						return new PasswordAuthentication("negiankit7053@gmail.com", "***************");
+						return new PasswordAuthentication("negiankit7053@gmail.com", "****************");
 					}
 					
 					

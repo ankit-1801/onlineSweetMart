@@ -28,6 +28,7 @@ public class UserController {
     @PostMapping("/signUp")
     public ResponseEntity<UserDto> createUser(@Valid @RequestBody UserDto u) throws IOException {// changes
     	u.setRole("ROLE_USER");
+    	u.setResetToken(0);
         return new ResponseEntity<>(userService.signUpUser(u), HttpStatus.CREATED);
     }
     
